@@ -1,0 +1,18 @@
+# See the LICENSE file for license details.
+
+version: '3'
+services:
+  jenkins:
+    build: .
+    container_name: jenkins
+    hostname: jenkins
+    image: jenkins:local
+    ports:
+      - "8090:8080"
+    networks:
+      - jenkinsnw
+    volumes:
+        - /var/run/docker.sock:/var/run/docker.sock                                                                                                                               
+        - /var/lib/docker:/var/lib/docker 
+networks:
+  jenkinsnw:
