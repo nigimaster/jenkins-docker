@@ -28,14 +28,16 @@ try {
 		}
 
 	}
-
-	stage('Deploy on K8s'){
-		// sh "kubectl create -f forcareapp-pod.yaml"
-		// sh "kubectl get pods"
-		// sh "cp -r /${WORKSPACE}/ansible/app-deploy /var/lib/jenkins/"
-		// sh "ansible-playbook ${WORKSPACE}/ansible/app-deploy/deploy.yml  --user=jenkins --extra-vars ImageName=${ImageName} --extra-vars imageTag=${imageTag} --extra-vars Namespace=${Namespace}"
+	
+	withKubeConfig(caCertificate: '', clusterName: 'minikube', contextName: 'minikube', credentialsId: 'Minikube', serverUrl: 'https://192.168.99.100:8443') {
+		stage('Deploy on K8s'){
+			sh "kubectl create -f forcareapp-pod.yaml"
+			// sh "kubectl create deployment hello-node --image=gcr.io/hello-minikube-zero-install/hello-node"
+			sh "kubectl get pods"
+			// sh "cp -r /${WORKSPACE}/ansible/app-deploy /var/lib/jenkins/"
+			// sh "ansible-playbook ${WORKSPACE}/ansible/app-deploy/deploy.yml  --user=jenkins --extra-vars ImageName=${ImageName} --extra-vars imageTag=${imageTag} --extra-vars Namespace=${Namespace}"
+		}
 	}
-
 }
 
 catch (err) {

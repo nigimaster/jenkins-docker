@@ -18,7 +18,7 @@ RUN add-apt-repository \
 RUN apt-get update  -qq \
     && apt-get install docker-ce=18.06.1~ce~3-0~debian -y --allow-unauthenticated \
     && apt-get install ansible -y --allow-unauthenticated \
-    && apt-get install vim -y  --allow-unauthenticated
+    && apt-get install vim -y --allow-unauthenticated
 
 RUN curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl && \
     chmod +x ./kubectl && \
