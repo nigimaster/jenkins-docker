@@ -34,13 +34,14 @@ try {
 		stage('Deploy on K8s'){
 			// clean up
 			sh "kubectl delete -f forcareapp-pod.yaml"
+			sh "kubectl delete svc forcareapp-deployment"
 			// create app
 			sh "kubectl create -f forcareapp-pod.yaml"
 			// sh "kubectl create deployment hello-node --image=gcr.io/hello-minikube-zero-install/hello-node"
 			sh "kubectl get pods"
+			sh "kubectl expose deployment forcareapp-deployment --type=NodePort"
 			// sh "cp -r /${WORKSPACE}/ansible/app-deploy /var/lib/jenkins/"
 			// sh "ansible-playbook ${WORKSPACE}/ansible/app-deploy/deploy.yml  --user=jenkins --extra-vars ImageName=${ImageName} --extra-vars imageTag=${imageTag} --extra-vars Namespace=${Namespace}"
-			sh "kubectl expose deployment forcareapp-deployment --type=NodePort"
 		}
 	}
 }
